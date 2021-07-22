@@ -28,7 +28,7 @@ ENV LIFERAY_HOME=/opt/liferay
 ENV CATALINA_HOME=/opt/tomcat
           
 COPY ./setenv.sh $CATALINA_HOME/bin/setenv.sh
-ADD /portal-ext.properties /opt/liferay/portal-ext.properties
+ADD ./portal-ext.properties /opt/liferay/portal-ext.properties
 
 # Change user and run liferay
 USER liferay
