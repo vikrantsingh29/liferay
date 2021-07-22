@@ -1,5 +1,7 @@
 # liferay
-Supports Postgres 9.3
+***Supports Postgres 9.3***
+
+
 Step 1 : Run the postgres container : 
 
 ```shell
