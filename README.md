@@ -1,7 +1,12 @@
 # liferay
 ***Supports Postgres 9.3***
 
-For building the docker image -  docker build -t liferayportal .
+For building the docker image :
+
+```shell
+docker build -t liferayportal .
+```
+
 
 
 Step 1 : Run the postgres container : 
