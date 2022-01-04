@@ -1,0 +1,31 @@
+version: '3.4'
+services:
+  liferay:
+    image: "liferay:portal-1.0"
+    depends_on:
+      - postgis_liferay
+    volumes:
+      - "./configs/docker/osgi/modules:/opt/liferay/deploy"
+      - "./configs/dev/portal-ext.properties:/opt/liferay/portal-ext.properties"
+      - "./setenv.sh:/opt/tomcat/bin/setenv.sh"
+    ports:
+      - "8080:8080"
+    environment:
+      - "LIFERAY_HOME=/opt/liferay"
+      - "CATALINA_HOME=/opt/tomcat"
+    networks:
+            - lfrnet
+  postgis_liferay:
+    container_name: "postgis_dev"
+    image: "postgis_liferay:portal-1.0"
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_PASSWORD=lportal"
+      - "POSTGRES_USER=lportal"
+      - "POSTGRES_DB=lportal"
+    networks:
+      - lfrnet
+
+networks:
+  lfrnet:
