@@ -10,10 +10,13 @@ RUN cd /opt \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && useradd -ms /bin/bash liferay
 
+
 RUN set -x \
       && curl -fSL "https://sourceforge.net/projects/lportal/files/Liferay%20Portal/7.3.5%20GA6/liferay-ce-portal-tomcat-7.3.5-ga6-20200930172312275.7z/download" -o liferay-ce-portal-tomcat-7.3.5-ga6-20200930172312275.7z \
-      && p7zip --decompress liferay-ce-portal-tomcat-7.3.5-ga6-20200930172312275.7z \ 
-      && mv liferay-ce-portal-7.3.5-ga6 /opt/liferay 
+      && p7zip --decompress liferay-ce-portal-tomcat-7.3.5-ga6-20200930172312275.7z \
+      && mv liferay-ce-portal-7.3.5-ga6 /opt/liferay \
+      # Remove this folder and map it later in docker-compose
+      && rm -R /opt/liferay/deploy
 
 # Configure permissions
 RUN cd /opt \
@@ -26,14 +29,15 @@ RUN cd /opt \
 # Add env independent props
 ENV LIFERAY_HOME=/opt/liferay
 ENV CATALINA_HOME=/opt/tomcat
-          
-COPY ./setenv.sh $CATALINA_HOME/bin/setenv.sh
+
+
+#COPY ./setenv.sh $CATALINA_HOME/bin/setenv.sh
 ADD ./portal-ext.properties /opt/liferay/portal-ext.properties
 
 # Change user and run liferay
+
 USER liferay
 WORKDIR /opt/tomcat
-
 
 # Ports
 EXPOSE 8080
@@ -41,4 +45,3 @@ EXPOSE 8080
 # EXEC
 CMD ["run"]
 ENTRYPOINT ["bin/catalina.sh", "run"]
-
