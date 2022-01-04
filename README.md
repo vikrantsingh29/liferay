@@ -1,4 +1,11 @@
 # liferay
+
+**Updated :**
+**Supports Postgis** \
+**to Start** : docker-compose start \
+**to stop**: docker-compose stop 
+
+
 ***Supports Postgres 9.3***
 
 For building the docker image :
